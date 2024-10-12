@@ -1,16 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable ,inject} from '@angular/core';
-import { CreateItem, Item } from './models/item';
+import { CreateItem, EditItem, Item } from './models/item';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  get(id: number) {
-    throw new Error('Method not implemented.');
-  }
-
   readonly URL = 'http://localhost:3000/items';
   private httpClient = inject( HttpClient);
 
@@ -20,7 +16,19 @@ export class ItemService {
     return this.httpClient.get<Item[]>(this.URL);
   }
 
+  getdata(id: number) {
+    return this.httpClient.get<Item>(`${this.URL}/${id}`)
+  }
+
   adddata(item: CreateItem) {
     return this.httpClient.post<Item>(this.URL, item);
+  }
+
+  editdata(id: number, item: EditItem) {
+    return this.httpClient.patch<Item>(`${this.URL}/${id}`, item);
+  }
+
+  deletedata(id: number) {
+    return this.httpClient.delete<void>(`${this.URL}/${id}`);
   }
 }

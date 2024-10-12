@@ -5,7 +5,7 @@ import { map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ItemService } from '../../item.service';
 import { MobileFormatPipe } from '../../../shared/pipes/mobile-format.pipe';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, Location } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -18,6 +18,7 @@ import { RouterLink } from '@angular/router';
 export class ItemEntryComponent {
 
   itemService = inject(ItemService)
+  location = inject(Location);
 
   items: Item[] = [];
 
@@ -46,5 +47,12 @@ export class ItemEntryComponent {
         || item.status.toLocaleLowerCase().includes(keyword)
       )
       })
+  }
+  onReload(): void {
+    window.location.reload();
+  }
+
+  onDelete(id: number) {
+    this.itemService.deletedata(id).subscribe(() => this.onReload());
   }
 }
