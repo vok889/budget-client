@@ -2,37 +2,48 @@
 
 <hr />
 <div class="bg-body-tertiary">
-  <h6>debugging</h6>
-  isSmallTable: {{ isSmallTable }}
+    <h6>debugging</h6>
+    isSmallTable: {{ isSmallTable }}
 </div>
 
 <hr />
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" id="isSmallTable" [(ngModel)]="isSmallTable" />
-  <!-- for="xxx" help you can refer two elements by id -->
-  <label class="form-check-label" for="isSmallTable">Show Small Table</label> 
+<div class="row">
+    <div class="col-8">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="isSmallTable" [(ngModel)]="isSmallTable">
+            <label class="form-check-label" for="isSmallTable">
+                Show Small Table
+            </label>
+        </div>
+    </div>
+    <div class="col-4">
+        <input type="text" class="form-control" id="filter" placeholder="Filter..." [formControl]="filterInput" />
+    </div>
 </div>
 
 <hr />
 <table class="table table-hover" [class.table-sm]="isSmallTable">
-  <thead>
-    <th>#</th>
-    <th>Title</th>
-    <th class="text-end pe-5">Price</th>
-    <th class="text-end pe-5">Amount</th>
-    <th class="text-center">Contact Mobile No</th>
-    <th class="text-center">Status</th>
-  </thead>
-  <tbody>
-    @for (item of items; track item.id) {
-      <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.title }}</td>
-        <td class="text-end pe-5">{{ item.price }}</td>
-        <td class="text-end pe-5">{{ item.amount }}</td>
-        <td class="text-center">{{ item.contactMobileNo }}</td>
-        <td class="text-center">{{ item.status }}</td>
-      </tr>
-    }
-  </tbody>
+    <thead>
+        <th>#</th>
+        <th>Title</th>
+        <th class="text-end pe-5">Price</th>
+        <th class="text-end pe-5">Amount</th>
+        <th class="text-center">Contact Mobile No</th>
+        <th class="text-center">Status</th>
+    </thead>
+    <tbody>
+        @for (item of filterItems; track item.id) {
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.title }}</td>
+            <td class="text-end pe-5">{{ item.price }}</td>
+            <td class="text-end pe-5">{{ item.amount }}</td>
+            <td class="text-center">{{ item.contactMobileNo }}</td>
+            <td class="text-center">{{ item.status }}</td>
+        </tr>
+        }
+        @empty {
+            <tr><td colspan="6" class="text-center">Data not found</td></tr>
+          } 
+    </tbody>
 </table>
