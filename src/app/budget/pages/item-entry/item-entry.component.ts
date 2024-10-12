@@ -49,7 +49,7 @@ export class ItemEntryComponent {
         const numericKeyword = parseInt(keyword, 10);
 
         this.filterItems = this.items.filter(item => item.title.toLocaleLowerCase().includes(keyword)
-        || item.status.toLocaleLowerCase().includes(keyword)
+        // || item.status.toLocaleLowerCase().includes(keyword)
         || item.amount === numericKeyword
       )
       })
