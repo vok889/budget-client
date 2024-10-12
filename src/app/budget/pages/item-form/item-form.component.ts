@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe, Location } from '@angular/common';
 import { thMobile } from '../../../shared/validators/th-mobile.validator';
+import { ItemService } from '../../item.service';
+import { ItemStatus } from '../../models/item';
 
 
 @Component({
@@ -13,15 +15,16 @@ import { thMobile } from '../../../shared/validators/th-mobile.validator';
 })
 export class ItemFormComponent {
 
+  // inject
   location = inject(Location);
-
-  fb = inject(NonNullableFormBuilder) // fb = formBuilder
+  fb = inject(NonNullableFormBuilder); // fb = formBuilder
+  itemService = inject(ItemService);
 
    // formControls
   title = this.fb.control<string>('', { validators: Validators.required });
   contactMobileNo = this.fb.control<string>('', { validators: [Validators.required , thMobile]});
-  amount = this.fb.control<number | null>(null, { validators: [Validators.required, Validators.min(1)] });
-  price = this.fb.control<number | null>(null, { validators: [Validators.required, Validators.min(0.5)] });
+  amount = this.fb.control<number>(null!, { validators: [Validators.required, Validators.min(1)] });
+  price = this.fb.control<number>(null!, { validators: [Validators.required, Validators.min(0.5)] });
 
   // formGroup
   fg = this.fb.group({
@@ -36,6 +39,7 @@ export class ItemFormComponent {
   }
 
   onSubmit(): void {
-    console.log(this.fg.getRawValue())
+    const item = {...this.fg.getRawValue(), status: ItemStatus.PENDING };
+    this.itemService.adddata(item).subscribe(v => this.onBack())
   }
 }
