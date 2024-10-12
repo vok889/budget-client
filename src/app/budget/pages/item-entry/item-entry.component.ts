@@ -4,11 +4,12 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ItemService } from '../../item.service';
+import { MobileFormatPipe } from '../../../shared/pipes/mobile-format.pipe';
 
 @Component({
   selector: 'app-item-entry',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,MobileFormatPipe],
   templateUrl: './item-entry.component.html',
   styleUrl: './item-entry.component.scss'
 })
@@ -35,8 +36,10 @@ export class ItemEntryComponent {
         const numericKeyword = parseInt(keyword, 10);
 
         this.filterItems = this.items.filter(item => item.title.toLocaleLowerCase().includes(keyword)
-        || item.status.toLocaleLowerCase().includes(keyword)
+        || item.price === numericKeyword
         || item.amount === numericKeyword
+        || item.contactMobileNo.toLocaleLowerCase().includes(keyword)
+        || item.status.toLocaleLowerCase().includes(keyword)
       )
       })
   }

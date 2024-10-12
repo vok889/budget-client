@@ -38,7 +38,7 @@
             <td>{{ item.title }}</td>
             <td class="text-end pe-5">{{ item.price }}</td>
             <td class="text-end pe-5">{{ item.amount }}</td>
-            <td class="text-center">{{ item.contactMobileNo }}</td>
+            <td class="text-center">{{ item.contactMobileNo | mobileFormat }}</td>
             <td class="text-center">{{ item.status }}</td>
         </tr>
         }
