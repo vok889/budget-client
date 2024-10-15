@@ -52,7 +52,14 @@ export class ItemEntryComponent {
     window.location.reload();
   }
 
+  // onDelete(id: number) {
+  //   this.itemService.deletedata(id).subscribe(() => this.onReload());
+  // }
+
   onDelete(id: number) {
-    this.itemService.deletedata(id).subscribe(() => this.onReload());
-  }
+    return this.itemService.deletedata(id).subscribe(v => {
+      this.items = this.items.filter(item => item.id != id)
+      this.filterItems = this.items
+    });
+  }  
 }

@@ -1,14 +1,6 @@
 {
   "items": [
     {
-      "title": "Gaming Laptop",
-      "amount": 3,
-      "price": 3200,
-      "contactMobileNo": "0812345678",
-      "status": "APPROVED",
-      "id": 1
-    },
-    {
       "title": "Desktop Tower",
       "amount": 7,
       "price": 2500,
