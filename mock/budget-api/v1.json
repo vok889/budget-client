@@ -1,22 +1,6 @@
 {
   "items": [
     {
-      "title": "Desktop Tower",
-      "amount": 7,
-      "price": 2500,
-      "contactMobileNo": "0823456789",
-      "status": "PENDING",
-      "id": 2
-    },
-    {
-      "title": "Mechanical Keyboard",
-      "amount": 6,
-      "price": 750,
-      "contactMobileNo": "0834567890",
-      "status": "REJECTED",
-      "id": 3
-    },
-    {
       "title": "Curved Monitor",
       "amount": 2,
       "price": 1800,

@@ -53,7 +53,7 @@
       <tr>
         <td>
           <i class="bi bi-pencil mx-2" routerLink="edit/{{ item.id }}" ></i>
-          <i class="bi bi-trash mx-2" (click)="onDelete(item.id)" ></i>
+          <i class="bi bi-trash mx-2" (click)="onConfirm(item)" ></i>
         </td>
         <td>{{ item.id }}</td>
         <td>{{ item.title }}</td> 
