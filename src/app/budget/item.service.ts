@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable ,inject} from '@angular/core';
-import { CreateItem, EditItem, Item } from './models/item';
+import { CreateItem, EditItem, Item, ItemStatus } from './models/item';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -31,4 +31,13 @@ export class ItemService {
   deletedata(id: number) {
     return this.httpClient.delete<void>(`${this.URL}/${id}`);
   }
+
+    // TODO: temp update by front-end
+    approve(id: number) {
+      return this.httpClient.patch<Item>(`${this.URL}/${id}`, { status: ItemStatus.APPROVED });
+    }
+  
+    reject(id: number) {
+      return this.httpClient.patch<Item>(`${this.URL}/${id}`, { status: ItemStatus.REJECTED });
+    }
 }
