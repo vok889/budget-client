@@ -9,11 +9,12 @@ import { DecimalPipe, Location } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { BudgetPlanComponent } from '../../components/budget-plan/budget-plan.component';
 
 @Component({
   selector: 'app-item-entry',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,MobileFormatPipe, DecimalPipe, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule,MobileFormatPipe, DecimalPipe, RouterLink, BudgetPlanComponent],
   templateUrl: './item-entry.component.html',
   styleUrl: './item-entry.component.scss'
 })

@@ -1,6 +1,6 @@
 <!-- item-enrty.component.html -->
 <h3 class="m-4">Item Entry</h3>
-
+<app-budget-plan />
 <hr />
 <div class="bg-body-tertiary">
   <h6>debugging</h6>
@@ -52,7 +52,7 @@
     @for (item of filterItems; track item.id) {
       <tr>
         <td>
-          <i class="bi bi-pencil mx-2" routerLink="edit/{{ item.id }}" ></i>
+          <i class="bi bi-pencil mx-2" routerLink="/budget/item-edit/{{ item.id }}" ></i>
           <i class="bi bi-trash mx-2" (click)="onConfirm(item)" ></i>
         </td>
         <td>{{ item.id }}</td>

@@ -7,13 +7,14 @@ import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/
 import { MobileFormatPipe } from '../../../shared/pipes/mobile-format.pipe';
 import { ItemService } from '../../item.service';
 import { Item, ItemStatus } from '../../models/item';
+import { BudgetPlanComponent } from '../../components/budget-plan/budget-plan.component';
 
 type ItemAction = 'Approve' | 'Reject';
 
 @Component({
   selector: 'app-item-approval',
   standalone: true,
-  imports: [ReactiveFormsModule, DecimalPipe, MobileFormatPipe],
+  imports: [ReactiveFormsModule, DecimalPipe, MobileFormatPipe,BudgetPlanComponent],
   templateUrl: './item-approval.component.html',
   styleUrl: './item-approval.component.scss'
 })
