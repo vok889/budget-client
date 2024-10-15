@@ -13,7 +13,7 @@
       "amount": 1,
       "price": 600,
       "contactMobileNo": "0856789012",
-      "status": "APPROVED",
+      "status": "REJECTED",
       "id": 5
     },
     {
@@ -21,7 +21,7 @@
       "amount": 4,
       "price": 4500,
       "contactMobileNo": "0867890123",
-      "status": "REJECTED",
+      "status": "APPROVED",
       "id": 6
     },
     {

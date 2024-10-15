@@ -8,6 +8,7 @@ import { MobileFormatPipe } from '../../../shared/pipes/mobile-format.pipe';
 import { ItemService } from '../../item.service';
 import { Item, ItemStatus } from '../../models/item';
 import { BudgetPlanComponent } from '../../components/budget-plan/budget-plan.component';
+import { BudgetPlanService } from '../../budget-plan.service';
 
 type ItemAction = 'Approve' | 'Reject';
 
@@ -20,6 +21,7 @@ type ItemAction = 'Approve' | 'Reject';
 })
 export class ItemApprovalComponent {
   itemService = inject(ItemService);
+  budgetPlanService = inject(BudgetPlanService)
 
   items: Item[] = [];
 
@@ -31,6 +33,7 @@ export class ItemApprovalComponent {
   constructor() {
     this.itemService.datalist().subscribe((vs) => {
       this.items = vs;
+      this.updateUsed()
     });
   }
 
@@ -57,12 +60,22 @@ export class ItemApprovalComponent {
   onApprove(id: number) {
     this.itemService.approve(id).subscribe(() => {
       this.items = this.items.map((v) => (v.id === id ? { ...v, status: ItemStatus.APPROVED } : v));
+      this.updateUsed()
     });
   }
 
   onReject(id: number) {
     this.itemService.reject(id).subscribe(() => {
       this.items = this.items.map((v) => (v.id === id ? { ...v, status: ItemStatus.REJECTED } : v));
+      this.updateUsed();
     });
+  }
+
+  private updateUsed() {
+    const used = this.items
+      .filter((v) => v.status === ItemStatus.APPROVED)
+      .map((v) => v.price)
+      .reduce((previos, current) => (previos += current), 0); // operate something with array value
+    this.budgetPlanService.updateUsed(used);
   }
 }
