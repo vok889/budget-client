@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable ,inject} from '@angular/core';
 import { CreateItem, EditItem, Item, ItemStatus } from './models/item';
 import { Observable } from 'rxjs';
+import { ENV_CONFIG } from '../env.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  readonly URL = 'http://localhost:3000/items';
+  private envConfig = inject(ENV_CONFIG);
+  readonly URL = `${this.envConfig.apiUrl}/items`;
   private httpClient = inject( HttpClient);
 
   constructor() { }

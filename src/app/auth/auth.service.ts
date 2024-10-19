@@ -4,12 +4,14 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 import { LoggedInUser, Tokens, UserProfile } from './models/logged-in-user';
+import { ENV_CONFIG } from '../env.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  readonly URL = 'http://localhost:3000/auth/login';
+  private envConfig = inject(ENV_CONFIG);
+  readonly URL = `${this.envConfig.apiUrl}/auth/login`;
 
   httpClient = inject(HttpClient);
 
