@@ -5,10 +5,11 @@ import { ItemFormComponent } from './pages/item-form/item-form.component';
 import { ItemApprovalComponent } from './pages/item-approval/item-approval.component';
 import { rolesGuard } from '../auth/guards/roles.guard';
 import { Role } from '../auth/models/logged-in-user';
+import { canDeactivateGuard } from '../auth/guards/can-deactivate.guard';
 
 export const routes: Routes = [
   { path: 'item-entry', component: ItemEntryComponent, title: 'Entry' },
-  { path: 'item-add', component: ItemFormComponent, title: 'Add' },
+  { path: 'item-add', component: ItemFormComponent, title: 'Add', canDeactivate: [canDeactivateGuard] },
   { path: 'item-edit/:id', component: ItemFormComponent, title: 'Edit' },
   { 
     path: 'item-approval', 

@@ -5,7 +5,11 @@ import { JsonPipe, Location } from '@angular/common';
 import { thMobile } from '../../../shared/validators/th-mobile.validator';
 import { ItemService } from '../../item.service';
 import { ItemStatus } from '../../models/item';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { CanComponentDeactivate } from '../../../auth/guards/can-deactivate.guard';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-item-form',
@@ -14,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './item-form.component.html',
   styleUrl: './item-form.component.scss'
 })
-export class ItemFormComponent implements OnInit {
+export class ItemFormComponent implements OnInit ,CanComponentDeactivate{
 
   @Input()
   id: number | null = null;
@@ -53,6 +57,9 @@ export class ItemFormComponent implements OnInit {
     this.location.back();
   }
 
+  modalService = inject(BsModalService)
+  bsModalRef?: BsModalRef;
+  
   onSubmit(): void {
     const item = {...this.fg.getRawValue(), status: ItemStatus.PENDING };
     console.log(item)
@@ -61,5 +68,29 @@ export class ItemFormComponent implements OnInit {
     } else {
       this.itemService.adddata(item).subscribe(() => this.onBack())
     }
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    // check is dirty-form
+    const isFormDirty = this.fg.dirty
+    console.log('isFormDirty', isFormDirty)
+    if (!isFormDirty) {
+      return true;
+    }
+
+    // init comfirm modal
+    const initialState: ModalOptions = {
+      initialState: {
+        title: `Confirm to leave" ?`
+      }
+    };
+    this.bsModalRef = this.modalService.show(ConfirmModalComponent, initialState);
+
+    return new Observable<boolean>((observer) => {
+      this.bsModalRef?.onHidden?.subscribe(() => {
+        observer.next(this.bsModalRef?.content?.confirmed);
+        observer.complete()
+      })  
+    })
   }
 }
