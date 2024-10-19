@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: 'item-entry', component: ItemEntryComponent, title: 'Entry' },
   { path: 'item-add', component: ItemFormComponent, title: 'Add' },
   { path: 'item-edit/:id', component: ItemFormComponent, title: 'Edit' },
-  { path: 'item-approval', component: ItemApprovalComponent, title: 'Approval' } 
+  { path: 'item-approval', component: ItemApprovalComponent, title: 'Approval' },
 ];
 
 export default routes;
