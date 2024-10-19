@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 import { LoggedInUser, Tokens, UserProfile } from './models/logged-in-user';
 import { ENV_CONFIG } from '../env.config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   readonly URL = `${this.envConfig.apiUrl}/auth/login`;
 
   httpClient = inject(HttpClient);
+  router = inject(Router)
 
   loggedInUser: LoggedInUser | null = null;
 
@@ -27,4 +29,9 @@ export class AuthService {
     const userProfile = jwtDecode<UserProfile>(newToken.access_token);
     this.loggedInUser = { tokens: newToken, userProfile };
   }
+
+  logout(): void {
+    this.loggedInUser = null;
+    this.router.navigate(['/auth/login']);
+  } 
 }

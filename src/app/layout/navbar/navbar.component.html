@@ -5,7 +5,7 @@
       <img src="logo.svg" alt="logo" width="60" height="48">
       <span>Budget App</span>
     </a>
-    <div>
+    <div class="navbar-collapse">
       <ul class="navbar-nav">
         @for (menu of menus; track menu.path) {
           <li class="nav-item">
@@ -14,5 +14,17 @@
         }
       </ul>
     </div>
+    <!-- add -->
+    @if (authService.loggedInUser; as loggedInUser) {
+      <span class="navbar-text">
+        <span>{{ loggedInUser.userProfile.username }}</span>
+        |
+        <i class="bi bi-box-arrow-in-right align-middle text-primary" (click)="onLogout()"></i>
+      </span>
+    } @else {
+      <button class="btn btn-outline-primary me-2" type="button" routerLink="/auth/login">
+        Login
+      </button>
+    } 
   </div>
 </nav>
