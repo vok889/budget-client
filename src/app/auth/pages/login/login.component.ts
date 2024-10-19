@@ -1,6 +1,6 @@
 // login.component.ts
 import { JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -14,6 +14,8 @@ import { AuthService } from '../../auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  @Input()
+  code = '';
 
   // router
   route = inject(ActivatedRoute) // add for get value from params in url
@@ -34,6 +36,14 @@ export class LoginComponent {
 
   // error
   error?: any;
+
+  ngOnInit() {
+    if (this.code) {
+      this.authService
+        .loginOauth2(this.code)
+        .subscribe(() => this.router.navigate(['/']));
+    }
+  }
 
   onLogin() {
     this.authService.login(this.fg.getRawValue()).subscribe({

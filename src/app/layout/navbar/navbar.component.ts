@@ -18,8 +18,14 @@ export class NavbarComponent {
     { path: 'budget/item-approval', title: 'Approval' }
   ];
 
-onLogout(): void {
+  onLogout(): void {
     this.authService.logout();
   }
+  
+  onKeycloakLogin() {
+    this.authService.getLoginOauth2RedirectUrl()
+      .subscribe((v) => window.location.replace(v.redirectUrl))
+  }
+
 
 }

@@ -52,4 +52,16 @@ export class AuthService {
       null
     );
   }  
+  
+  getLoginOauth2RedirectUrl() {
+    return this.httpClient.get<{ redirectUrl: string }>(
+      `${this.envConfig.apiUrl}/auth/login-oauth2-redirect-url`
+    );
+  }
+
+  loginOauth2(code: string) {
+    return this.httpClient
+      .post<any>(`${this.envConfig.apiUrl}/auth/login-oauth2`, { code })
+      .pipe(tap((newToken) => this.setTokens(newToken)));
+  }
 }
