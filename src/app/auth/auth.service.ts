@@ -45,4 +45,11 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
     sessionStorage.removeItem(this.TOKENS);
   } 
+
+  refreshToken(): Observable<{ access_token: string }> {
+    return this.httpClient.post<{ access_token: string }>(
+      `${this.envConfig.apiUrl}/auth/refresh`,
+      null
+    );
+  }  
 }
